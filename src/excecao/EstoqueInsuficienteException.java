@@ -1,6 +1,6 @@
 package excecao;
 
-public class EstoqueInsuficienteException extends RuntimeException{
+public class EstoqueInsuficienteException extends RuntimeException {
 	public EstoqueInsuficienteException(String message) {
 		super(message);
 	}
