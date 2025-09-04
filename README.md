@@ -15,29 +15,6 @@ Implementar um sistema de controle de estoque para diferentes tipos de produtos 
 - Interface `Item` padronizando os comportamentos dos produtos;
 - Exibição do estoque final de todos os itens ao encerrar o sistema.
 
-## 🧱 Estrutura de Classes
-
-aplicacao/
-
-└── Aplicacao.java | Classe principal com menu de interação
-
-pecas/
-
-├── Peca.java | Classe abstrata base
-
-├── Acessorio.java | Subclasse para acessórios
-
-├── RoupaTamanhoUnico.java | Subclasse para roupas com tamanho único
-
-└── RoupaPMG.java | Implementação para roupas P, M, G
-
-interfac/
-
-└── Item.java | Interface com métodos padrão dos produtos
-
-excecao/
-
-└── EstoqueInsuficienteException.java | Exceção personalizada para vendas inválidas
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -45,3 +22,75 @@ excecao/
 - Paradigmas de POO: herança, polimorfismo, abstração;
 - Scanner (entrada do usuário);
 - Tratamento de exceções personalizadas.
+
+
+  ## 📊 Diagrama de Classes UML
+
+```mermaid
+classDiagram
+    direction LR
+
+    class Item {
+        <<interface>>
+        +venda()
+        +estoqueFinal()
+        +reposicaoDeEstoque()
+    }
+
+    class Peca {
+        <<abstract>>
+        -String descricao
+        -int quantidade
+        -int estoqueMinimo
+        -int estoqueMaximo
+        +Peca(String descricao, int quantidade, int estoqueMinimo, int estoqueMaximo)
+        +venda()*
+        +reposicaoDeEstoque()
+        +getDescricao()
+        +getQuantidade()
+        +setQuantidade(int quantidade)
+    }
+
+    class Acessorio {
+        +Acessorio(String descricao, int quantidade, int estoqueMinimo, int estoqueMaximo)
+        +venda()
+        +reposicaoDeEstoque()
+        +estoqueFinal()
+    }
+
+    class RoupaTamanhoUnico {
+        +RoupaTamanhoUnico(String descricao, int quantidade, int estoqueMinimo, int estoqueMaximo)
+        +venda()
+        +reposicaoDeEstoque()
+        +estoqueFinal()
+    }
+
+    class RoupaPMG {
+        -String descricao
+        -int quantidadeP
+        -int quantidadeM
+        -int quantidadeG
+        -int estoqueMinimo
+        -int estoqueMaximo
+        +RoupaPMG(String descricao, int qP, int qM, int qG, int estoqueMinimo, int estoqueMaximo)
+        +venda()
+        +reposicaoDeEstoque()
+        +estoqueFinal()
+    }
+
+    class EstoqueInsuficienteException {
+        +EstoqueInsuficienteException(String message)
+    }
+
+    class Aplicacao {
+        +main(String[] args)
+    }
+
+    %% Relações
+    Item <|.. Acessorio
+    Item <|.. RoupaTamanhoUnico
+    Item <|.. RoupaPMG
+
+    Peca <|-- Acessorio
+    Peca <|-- RoupaTamanhoUnico
+
